@@ -21,7 +21,7 @@ public class EnquiryController {
 	@GetMapping("/enquiries")
 	public String viewEnquiry()
 	{
-		return "add_enquiry";
+		return "add-enquiry";
 	}
 	
 	

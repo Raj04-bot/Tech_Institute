@@ -1,5 +1,15 @@
 package com.tech.repo;
 
-public interface UserDtlsRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.tech.entity.UserDtlsEntity;
+
+import jakarta.persistence.Entity;
+
+@Repository
+public interface UserDtlsRepo extends JpaRepository<UserDtlsEntity, Integer>{
+
+	
 
 }
