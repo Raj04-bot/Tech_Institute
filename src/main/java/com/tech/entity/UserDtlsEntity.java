@@ -1,5 +1,7 @@
 package com.tech.entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,7 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.AssertFalse.List;
+
 import lombok.Data;
 
 @Data
@@ -17,21 +19,15 @@ import lombok.Data;
 public class UserDtlsEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userID;
 	private String name;
 	private String email;
-	private Long mobileNo;
+	private Long phno;
 	private String password;
-	private String accstatus;
+	private String acc_status;
 	
 	
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-//	private List<StudentEnqEntity> enquries;
-	
-	
-	
-	
-	
-
+	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	    private List<StudentEnqEntity> enquries;
 }
