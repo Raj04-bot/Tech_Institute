@@ -10,8 +10,12 @@ import com.tech.dto.UnlockForm;
 public interface UserService {
 	
 	public String login(LoginForm form);
+	
 	public boolean signup(SignUpForm form);
-	public String unlock(UnlockForm form);
+	
+	public boolean unlock(UnlockForm form);
+	
 	public String forgotpswrd(String email);
 
+	
 }

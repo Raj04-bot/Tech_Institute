@@ -24,7 +24,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String login(LoginForm form) {
 		// TODO Auto-generated method stub
-		return null;
+		
+	UserDtlsEntity entity = 
+			userDtlsRepo.findByEmailAndPassword(form.getEmail(), form.getPassword());
+	
+	if(entity == null)
+	{
+		return "Invalid credentials";
+	}
+	
+	if (entity.getAcc_status().equals("LOCKED"))
+	{
+		return "Your account is locked";
+	}
+		
+		return "success";
 	}
 
 	@Override
@@ -53,8 +67,8 @@ public class UserServiceImpl implements UserService{
 		// send email to the account
 			String to = form.getEmail();
 			String subject = "Unlock your account";
-		//	String body ="<h1>Use below Temp password to unlock your account</h1>";
-			
+		
+			//	String body ="<h1>Use below Temp password to unlock your account</h1>";
 			StringBuffer body = new StringBuffer();
 			body.append("<h1>Use below Temp password to unlock your account</h1>");
 			body.append("Temporary Password is :" +tempPwd);
@@ -67,9 +81,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String unlock(UnlockForm form) {
-		// TODO Auto-generated method stub
-		return null ;
+	public boolean unlock(UnlockForm form) {
+		
+		UserDtlsEntity entity = userDtlsRepo.findByEmail(form.getEmail());
+		
+		if(entity.getPassword().equals(form.getTempPassword()))
+		{
+			entity.setPassword(form.getNewPwd());
+			entity.setAcc_status("unlocked");
+			userDtlsRepo.save(entity); 
+			return true;
+		}
+		else {
+			return false ;
+		}     
+		
 	}
 
 	@Override

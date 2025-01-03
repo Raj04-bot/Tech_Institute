@@ -12,15 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tech.dto.LoginForm;
 import com.tech.dto.SignUpForm;
 import com.tech.dto.UnlockForm;
 import com.tech.services.UserService;
+
+import ch.qos.logback.core.joran.conditional.IfAction;
+import ch.qos.logback.core.status.Status;
 
 @Controller
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	private boolean status;
 	
 	@GetMapping("/signup")
 	public String signup(Model model)
@@ -47,15 +52,32 @@ public class UserController {
 	
 	
 	@GetMapping("/login")
-	public String logiPage()
+	public String loginpage(Model model)
 	{
+		model.addAttribute("loginform",new LoginForm());
 		return "login";
+	}
+	
+	@PostMapping("/loginform")
+	public String login (@ModelAttribute("loginform") LoginForm loginform, Model model)
+	{
+		
+		String	status = userService.login(loginform);
+		if(status.contains("success"))
+		{
+			return "redirect:/dashboard";
+		}
+		model.addAttribute("errMsg",status);
+		
+		return "login";
+		
 	}
 	
 
 	
 	@GetMapping("/unlock")
-	public String unlock(@RequestParam String email, Model model)// this method is taking data from form as a query parameter
+	// this method is taking data from form as a query parameter
+	public String unlock(@RequestParam String email, Model model)
 	{
 		// Setting data to the binding oject
 		UnlockForm unlockFormObj = new UnlockForm();
@@ -69,8 +91,22 @@ public class UserController {
 	}
 	
 	@PostMapping("/unlock")
-	public String unlockAccount(@ModelAttribute UnlockForm form, Model model)
+	public String unlockAccount(@ModelAttribute("unlock") UnlockForm unlock, Model model)
 	{
+		
+		
+		if(unlock.getNewPwd().equals(unlock.getConfirmPwd()))
+		{
+		  if (status) {
+			  model.addAttribute("successs message", "Your acchount has been unlocked");
+		  }else {
+			model.addAttribute("given temp password is  incorrect");
+		}
+			
+		}else {
+			model.addAttribute("errmsg","New Password and confirm password should be same");
+		}
+
 		
 		return "unlock";
 	}

@@ -81,11 +81,15 @@
 											alt="logo">
 										<h4 class="mt-1 mb-5 pb-1">Unlock your account here</h4>
 									</div>
+									
+									<p th:text="${errmsg}" class=text-danger>
+									<p th:text="${successs message}" class= text-success>
 
 									<form th:action ="@{/unlock} " th:object="${unlock}" method="POST">
 
 										<div class="form-outline mb-6">
 											<h6>Your Email: <p th:text="${unlock.email}"></h6>
+											<input type ="hidden" th:field="${unlock.email}"/>
 										</div>
 
 										<div class="form-outline mb-4">

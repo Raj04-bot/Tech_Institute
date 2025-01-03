@@ -13,6 +13,8 @@ import java.util.List;
 public interface UserDtlsRepo extends JpaRepository<UserDtlsEntity, Integer>{
 	
 	public UserDtlsEntity findByEmail(String email);
+	
+	public UserDtlsEntity findByEmailAndPassword(String email, String password);
 
 	
 
