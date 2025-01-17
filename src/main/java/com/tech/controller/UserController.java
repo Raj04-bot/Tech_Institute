@@ -118,4 +118,10 @@ public class UserController {
 	{
 		return "forgotPwd";
 	}
+	
+	@PostMapping("/forgotPwd")
+	public String forgotpwd(@RequestParam("email")String email,Model model)
+	{
+		return forgotpswrd();
+	}
 }
