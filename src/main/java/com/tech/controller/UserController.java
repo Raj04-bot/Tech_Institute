@@ -122,6 +122,15 @@ public class UserController {
 	@PostMapping("/forgotPwd")
 	public String forgotpwd(@RequestParam("email")String email,Model model)
 	{
+		boolean status = userService.forgotpswrd(email);
+		
+		if (status)
+		{
+			model.addAttribute("sucessMessage","password sent to your registerd email id");
+		}else {
+			model.addAttribute("errorMsg","invalid email");
+			
+		}
 		return forgotpswrd();
 	}
 }

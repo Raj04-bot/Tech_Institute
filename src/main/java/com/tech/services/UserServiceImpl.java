@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String forgotpswrd(String email) {
+	public boolean forgotpswrd(String email) {
 		
 		// check record present in the db or not with the given email
 		UserDtlsEntity entity = userDtlsRepo.findByEmail(email);
@@ -108,11 +108,18 @@ public class UserServiceImpl implements UserService{
 		
 		// if record is not available then send error message
 		
-		
-		
+		if (entity==null)
+		{
+			return false;
+		}
+			
 		// if record available send passeword to email and send success message
+		String Subject =" Recover Password";
+		String body ="Your password :: " + entity.getPassword(); 
+		emailUtils.sendEmail(email, Subject, body);
 		
-		return null;
+		return true;
+				
 	}
 
 }
