@@ -100,7 +100,18 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String forgotpswrd(String email) {
-		// TODO Auto-generated method stub
+		
+		// check record present in the db or not with the given email
+		UserDtlsEntity entity = userDtlsRepo.findByEmail(email);
+		
+		
+		
+		// if record is not available then send error message
+		
+		
+		
+		// if record available send passeword to email and send success message
+		
 		return null;
 	}
 
