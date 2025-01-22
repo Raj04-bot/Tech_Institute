@@ -12,11 +12,16 @@ import com.tech.repo.UserDtlsRepo;
 import com.tech.utils.EmailUtils;
 import com.tech.utils.PwdUtils;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserDtlsRepo userDtlsRepo;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@Autowired
 	private EmailUtils emailUtils;
@@ -37,6 +42,11 @@ public class UserServiceImpl implements UserService{
 	{
 		return "Your account is locked";
 	}
+	
+	//create  session and store user data in session
+	
+		session.setAttribute("userid", entity.getUserID());
+		
 		
 		return "success";
 	}
