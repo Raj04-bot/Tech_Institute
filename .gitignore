@@ -1,0 +1,13 @@
+
+  mvnw.cmd
+mvnw
+HELP.md
+.project
+.gitattributes
+.factorypath
+.classpath
+.classpath
+.settings/
+src/main/resources/application.properties
+target/classes/application.properties
+target/m2e-wtp/web-resources/
