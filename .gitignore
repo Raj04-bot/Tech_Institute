@@ -11,3 +11,5 @@ HELP.md
 src/main/resources/application.properties
 target/classes/application.properties
 target/m2e-wtp/web-resources/
+ src/main/resources/application.properties
+ .gitignore

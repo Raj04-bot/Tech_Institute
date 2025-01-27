@@ -20,13 +20,13 @@ public class StudentEnqEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer enqid;
-	private String stydentName;
+	private String studentName;
 	private Long phno;
-	private String class_mode;
-	private String course_name;
+	private String classMode;
+	private String courseName;
 	private String enqStatus;
-	private Date enq_creationDate;
-	private Date updated_Date;
+	private Date enqCreationDate;
+	private Date updatedDate;
 	
 	 @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "user_id") 

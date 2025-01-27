@@ -13,6 +13,12 @@ public interface EnquiryService {
 
 	public DashBoardResponse getDashBoardData(Integer userID);
 	
+	public List<String> getCourses(); 
+	
+	public List<String> getEnqStatuses();
+	
+	public boolean saveEnquiry(EnquiryForm form);
+	
 	
 
 }

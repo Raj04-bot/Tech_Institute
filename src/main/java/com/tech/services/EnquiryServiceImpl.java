@@ -1,8 +1,8 @@
 package com.tech.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.tech.dto.DashBoardResponse;
 import com.tech.dto.EnquiryForm;
-import com.tech.dto.EnquirySearchCriteria;
+import com.tech.entity.CourseEntity;
+import com.tech.entity.EnqStatusEntity;
 import com.tech.entity.StudentEnqEntity;
 import com.tech.entity.UserDtlsEntity;
+import com.tech.repo.CourseRepo;
+import com.tech.repo.EnqStatusRepo;
 import com.tech.repo.UserDtlsRepo;
+
+import jakarta.persistence.Entity;
 
 @Service
 public class EnquiryServiceImpl implements EnquiryService{
@@ -21,15 +26,21 @@ public class EnquiryServiceImpl implements EnquiryService{
 	@Autowired
 	private UserDtlsRepo userDtlsRepo;
 	
+	@Autowired
+	private CourseRepo coursesRepo;
+	
+	@Autowired
+	private EnqStatusRepo statusRepo;
+	
 	
 	
 	@Override
 	public DashBoardResponse getDashBoardData(Integer userID) {
+		
 		// TODO Auto-generated method stub
 		DashBoardResponse response = new DashBoardResponse();
 		
-		
-		Optional<UserDtlsEntity> findById = userDtlsRepo.findById(userID);
+			Optional<UserDtlsEntity> findById = userDtlsRepo.findById(userID);
 		
 		if (findById.isPresent()) {
 			UserDtlsEntity userEntity = findById.get();
@@ -57,6 +68,50 @@ public class EnquiryServiceImpl implements EnquiryService{
 											
 		
 		return null;
+	}
+
+
+
+	@Override
+	public List<String> getCourses() {
+	List<CourseEntity> findAll	= coursesRepo.findAll();
+	
+	List<String> names = new ArrayList();
+	
+	for (CourseEntity entity : findAll)
+	{
+		names.add(entity.getCourse_name());
+	}
+		
+		return names;
+	}
+
+
+
+	@Override
+	public List<String> getEnqStatuses() {
+		
+		// TODO Auto-generated method stub
+			List<EnqStatusEntity> findAll = statusRepo.findAll();
+			
+			List<String> statusList = new ArrayList<>();
+			
+			for(EnqStatusEntity Entity : findAll)
+			{
+				statusList.add(Entity.getStatusName());
+			}
+					
+		return statusList;
+	}
+
+
+
+	@Override
+	public boolean saveEnquiry(EnquiryForm form) {
+		// TODO Auto-generated method stub
+		
+		
+		return false;
 	}
 
 
