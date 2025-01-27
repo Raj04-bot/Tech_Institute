@@ -13,7 +13,7 @@ import lombok.Data;
 public class EnqStatusEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Integer statusID;
 	private String statusName;
 	

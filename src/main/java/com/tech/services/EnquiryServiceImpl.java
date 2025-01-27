@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.tech.dto.DashBoardResponse;
 import com.tech.dto.EnquiryForm;
 import com.tech.entity.CourseEntity;
@@ -16,6 +18,7 @@ import com.tech.entity.StudentEnqEntity;
 import com.tech.entity.UserDtlsEntity;
 import com.tech.repo.CourseRepo;
 import com.tech.repo.EnqStatusRepo;
+import com.tech.repo.StudentEnqRepo;
 import com.tech.repo.UserDtlsRepo;
 
 import jakarta.persistence.Entity;
@@ -25,6 +28,9 @@ public class EnquiryServiceImpl implements EnquiryService{
 	
 	@Autowired
 	private UserDtlsRepo userDtlsRepo;
+	
+	@Autowired
+	private StudentEnqRepo enqRepo;
 	
 	@Autowired
 	private CourseRepo coursesRepo;
@@ -80,7 +86,7 @@ public class EnquiryServiceImpl implements EnquiryService{
 	
 	for (CourseEntity entity : findAll)
 	{
-		names.add(entity.getCourse_name());
+		names.add(entity.getCourseName());
 	}
 		
 		return names;
@@ -110,8 +116,12 @@ public class EnquiryServiceImpl implements EnquiryService{
 	public boolean saveEnquiry(EnquiryForm form) {
 		// TODO Auto-generated method stub
 		
+		StudentEnqEntity entity = new StudentEnqEntity();
+		BeanUtils.copyProperties(form,entity);
 		
-		return false;
+		enqRepo.save(null);
+		
+		return true;
 	}
 
 

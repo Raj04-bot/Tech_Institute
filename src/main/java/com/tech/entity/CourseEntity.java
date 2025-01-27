@@ -13,9 +13,9 @@ import lombok.Data;
 public class CourseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer course_id;
-	private String course_name;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer courseId;
+	private String courseName;
 	
 	
 	

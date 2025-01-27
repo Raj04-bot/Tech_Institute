@@ -1,5 +1,6 @@
 package com.tech.controller;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,24 +58,26 @@ public class EnquiryController {
 		
 		//send data in model object
 		model.addAttribute("courseNames",courses);
-		model.addAttribute("enqStatusNames",enqStatus);
+		model.addAttribute("enqStatus",enqStatus);
 		model.addAttribute("formObj", formobj);
 		
 		 return"add-enquiry";
 	 }
-	
-//	  @PostMapping("/enquiry")
-//	    public String saveEnquiry(@ModelAttribute("formObj") EnquiryForm formObj, Model model) {
-//	        boolean isSaved = enqservice.saveEnquiry(formObj);
-//
-//	        if (isSaved) {
-//	            model.addAttribute("successMessage", "Enquiry saved successfully!");
-//	        } else {
-//	            model.addAttribute("errorMessage", "Failed to save enquiry.");
-//	        }
-//
-//	        return "redirect:/enquiries";
-//	    }
+		
+	@PostMapping("/addEnquiry")
+		public String addEnquiry(@ModelAttribute( "formObj")EnquiryForm formObj,Model model)
+		{
+			
+		// save the data
+			boolean status = enqservice.saveEnquiry(formObj);
+			
+			if(status) {
+				model.addAttribute("succMsg","Enquiry Added");
+			}else {
+				model.addAttribute("errMsg","Enquiry Not added some problem ocured");
+			}
+			return "add-enquiry";
+		}
 
 	
 	@GetMapping("/enquiries")

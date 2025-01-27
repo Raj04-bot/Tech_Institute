@@ -87,7 +87,8 @@
 											<label class="form-label" for="form2Example22">Course</label>
 											<select id="form2Example22" class="form-select" th:field="*{courseName}">
 												<option>-Select-</option>
-												<option value="">-SELECT-</option>
+											<option th:each="course : ${courseNames}" th:value="{course}" th:text="${course}">
+											</option>
 											</select>
 										</div>
 										<div class="form-outline mb-4">
@@ -95,7 +96,8 @@
 												</label> 
 												<select id="form2Example22" class="form-select" th:field="*{enqStatus}">
 												<option>-Select-</option>
-													<option value=" ">-SELECT-</option>
+												<option th:each="statusName : ${enqStatus}" th:value="{statusName}" th:text="${statusName}">
+											</option>
 											</select>
 										</div>
 
