@@ -22,6 +22,7 @@ import com.tech.repo.StudentEnqRepo;
 import com.tech.repo.UserDtlsRepo;
 
 import jakarta.persistence.Entity;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class EnquiryServiceImpl implements EnquiryService{
@@ -37,6 +38,9 @@ public class EnquiryServiceImpl implements EnquiryService{
 	
 	@Autowired
 	private EnqStatusRepo statusRepo;
+	
+	@Autowired 
+	private HttpSession session;
 	
 	
 	
@@ -58,12 +62,12 @@ public class EnquiryServiceImpl implements EnquiryService{
 				
 			 // this is total enrolled count        
 			Integer  enrolledCnt = enquiries.stream()
-			 		  .filter(e -> e.getEnqStatus().equals("ENROLLED") )
+			 		  .filter(e -> e.getEnqStatus().equals("Enrolled") )
 			 		  .collect( Collectors.toList()) .size();
 			
 			// total lost coount 
 			   Integer lostCnt = enquiries.stream()
-			     .filter(e -> e.getEnqStatus().equals("LOST"))
+			     .filter(e -> e.getEnqStatus().equals("Lost"))
 			     .collect(Collectors.toList()).size();
 			
 			response.setTotalEnquries(totalCnt);
@@ -114,12 +118,16 @@ public class EnquiryServiceImpl implements EnquiryService{
 
 	@Override
 	public boolean saveEnquiry(EnquiryForm form) {
-		// TODO Auto-generated method stub
+				
+		StudentEnqEntity enqEntity = new StudentEnqEntity();
+		BeanUtils.copyProperties(form,enqEntity);
 		
-		StudentEnqEntity entity = new StudentEnqEntity();
-		BeanUtils.copyProperties(form,entity);
+		Integer userId = (Integer) session.getAttribute("userId");
 		
-		enqRepo.save(null);
+		UserDtlsEntity userEntity = userDtlsRepo.findById(userId).get();
+		enqEntity.setUser(userEntity);
+				
+		enqRepo.save(enqEntity);
 		
 		return true;
 	}
