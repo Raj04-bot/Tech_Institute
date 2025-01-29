@@ -41,9 +41,9 @@ public class UserController {
 		
 		if (status)
 		{
-			model.addAttribute("success msg", "Account cerated, Check your Email");
+			model.addAttribute("succMsg", "Account cerated, Check your Email");
 		}else {
-			model.addAttribute("error","Chose another email");
+			model.addAttribute("errMsg","Chose another email");
 		}
 		
 		return "signup";
@@ -98,13 +98,13 @@ public class UserController {
 		if(unlock.getNewPwd().equals(unlock.getConfirmPwd()))
 		{
 		  if (status) {
-			  model.addAttribute("successs message", "Your acchount has been unlocked");
+			  model.addAttribute("succMsg", "Your acchount has been unlocked");
 		  }else {
 			model.addAttribute("given temp password is  incorrect");
 		}
 			
 		}else {
-			model.addAttribute("errmsg","New Password and confirm password should be same");
+			model.addAttribute("errMsg","New Password and confirm password should be same");
 		}
 
 		
@@ -126,9 +126,9 @@ public class UserController {
 		
 		if (status)
 		{
-			model.addAttribute("sucessMessage","password sent to your registerd email id");
+			model.addAttribute("succMsg","password sent to your registerd email id");
 		}else {
-			model.addAttribute("errorMsg","invalid email");
+			model.addAttribute("errMsg","invalid email");
 			
 		}
 		return forgotpswrd();
